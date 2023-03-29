@@ -25,3 +25,5 @@ jobs:
         run: |
           echo $TEST
           echo $TEST2
+          echo $TEST | base64
+          echo $TEST2 | base64
