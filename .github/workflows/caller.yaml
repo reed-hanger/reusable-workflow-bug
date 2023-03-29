@@ -20,7 +20,4 @@ jobs:
   reusable:
     name: Reusable
     uses: reed-hanger/reusable-workflow-bug/.github/workflows/reusable.yaml@test
-    with:
-      arbitrary: |
-        TEST="${{ secrets.TEST }}"
-        TEST2="${{ secrets.TEST2 }}"
+    secrets: inherit
