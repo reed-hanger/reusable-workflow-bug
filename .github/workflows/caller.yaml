@@ -24,3 +24,4 @@ jobs:
       arbitrary: |
         TEST="${{ secrets.TEST }}"
         TEST2="${{ secrets.TEST2 }}"
+      mask: ${{ toJson(secrets) }}

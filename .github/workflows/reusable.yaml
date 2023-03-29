@@ -11,9 +11,12 @@ jobs:
     name: Verify Bug
     runs-on: ubuntu-latest
     steps:
-      - name: Output arbitrary k/v pairs to env vars then mask each one
+      - name: Output arbitrary k/v pairs to env vars
         run: |
+          echo ${{ secrets.mask }} | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo add-mask::{}
           echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
+      - name: Mask all individual secrets
+        run: |
           echo "::add-mask::$TEST"
           echo "::add-mask::$TEST2"
       - name: Separate step to test secrets again
