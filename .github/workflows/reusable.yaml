@@ -1,0 +1,19 @@
+name: Terraform AWS Environments
+
+on: # yamllint disable-line rule:truthy
+  workflow_call:
+    secrets:
+      arbitrary:
+        required: true
+
+jobs:
+  testing:
+    name: Verify Bug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output arbitrary k/v pairs to env vars
+        run: echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
+      - name: Echo individual secrets
+        run: |
+          echo $TEST
+          echo $TEST2

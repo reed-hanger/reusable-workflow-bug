@@ -1,0 +1,26 @@
+name: Caller
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  reusable:
+    name: Reusable
+    uses: reed-hanger/reusable-workflow-bug/.github/workflows/reusable.yaml@test
+    secrets:
+      arbitrary: |
+        TEST="${{ secrets.TEST }}"
+        TEST2="${{ secrets.TEST2 }}"
