@@ -19,5 +19,6 @@ jobs:
           echo "::add-mask::$TEST"
           echo "::add-mask::$TEST2"
       - name: Separate step to test secrets again
+        run: |
           echo $TEST
           echo $TEST2
