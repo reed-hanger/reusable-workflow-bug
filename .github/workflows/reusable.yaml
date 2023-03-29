@@ -1,17 +1,23 @@
 name: Terraform AWS Environments
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      arbitrary:
+        required: true
+        type: string
 
 jobs:
   testing:
     name: Verify Bug
     runs-on: ubuntu-latest
     steps:
-      - name: Output inherited secrets to env var
+      - name: Output arbitrary k/v pairs to env vars
+        run: echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
+      - name: Mask all individual secrets
         run: |
-          echo "test=${{ secrets.TEST }}" >> $GITHUB_ENV
-          echo "test2=${{ secrets.TEST2 }}" >> $GITHUB_ENV
-      - name: Mask all secrets
-        run: |
-          echo $test
-          echo $test2
+          echo "::add-mask::$TEST"
+          echo "::add-mask::$TEST2"
+      - name: Separate step to test secrets again
+          echo $TEST
+          echo $TEST2
