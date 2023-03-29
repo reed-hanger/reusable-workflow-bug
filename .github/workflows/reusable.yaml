@@ -5,6 +5,8 @@ on:
     secrets:
       arbitrary:
         required: true
+      mask:
+        required: true
 
 jobs:
   testing:
@@ -15,10 +17,6 @@ jobs:
         run: |
           echo ${{ secrets.mask }} | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo add-mask::{}
           echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
-      - name: Mask all individual secrets
-        run: |
-          echo "::add-mask::$TEST"
-          echo "::add-mask::$TEST2"
       - name: Separate step to test secrets again
         run: |
           echo $TEST
