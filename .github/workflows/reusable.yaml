@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Output arbitrary k/v pairs to env vars
         run: |
-          echo ${{ secrets.mask }} | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo add-mask::{}
+          echo "${{ secrets.mask }}" | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo add-mask::{}
           echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
       - name: Separate step to test secrets again
         run: |
