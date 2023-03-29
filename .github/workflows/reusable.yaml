@@ -18,7 +18,7 @@ jobs:
           JSON_DOC: ${{ secrets.mask }}
         run: |
           printf '%s\n' "$JSON_DOC" > secrets.json
-          jq 'to_entries | .[].value' -r secrets.json | xargs -L1 -I'{}' echo add-mask::{}
+          jq 'to_entries | .[].value' -r secrets.json | xargs -L1 -I'{}' echo ::add-mask::{}
           echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
       - name: Separate step to test secrets again
         run: |
