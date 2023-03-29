@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Output arbitrary k/v pairs to env vars
         run: echo "${{ secrets.arbitrary }}" >> $GITHUB_ENV
-      # - name: Mask all individual secrets
-      #   run: |
-      #     echo "::add-mask::$TEST"
-      #     echo "::add-mask::$TEST2"
+      - name: Mask all individual secrets
+        run: |
+          echo "::add-mask::$TEST"
+          echo "::add-mask::$TEST2"
       - name: Separate step to test secrets again
         run: |
           echo $TEST
