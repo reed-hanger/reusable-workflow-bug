@@ -12,6 +12,8 @@ jobs:
   testing:
     name: Verify Bug
     runs-on: ubuntu-latest
+    environment:
+      name: test
     steps:
       - name: Output arbitrary k/v pairs to env vars
         env:
