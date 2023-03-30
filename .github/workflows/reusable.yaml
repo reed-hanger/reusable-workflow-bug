@@ -1,0 +1,26 @@
+name: Terraform AWS Environments
+
+on:
+  workflow_call:
+    secrets:
+      arbitrary:
+        required: true
+      mask:
+        required: true
+
+jobs:
+  testing:
+    name: Verify Bug
+    runs-on: ubuntu-latest
+    environment:
+      name: test
+    steps:
+      - name: Output arbitrary k/v pairs to env vars
+        env:
+          JSON_DOC: ${{ secrets.mask }}
+        run: |
+          printf '%s\n' "$JSON_DOC" | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo ::add-mask::{}
+      - name: Separate step to test secrets again
+        run: |
+          echo '${{ secrets.arbitrary }}' | base64
+          echo '${{ secrets.mask }}' | base64
