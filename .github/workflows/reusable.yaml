@@ -22,5 +22,5 @@ jobs:
           printf '%s\n' "$JSON_DOC" | jq 'to_entries | .[].value' -r | xargs -L1 -I'{}' echo ::add-mask::{}
       - name: Separate step to test secrets again
         run: |
-          echo ${{ secrets.arbitrary }} | base64
-          echo ${{ secrets.mask }} | base64
+          echo '${{ secrets.arbitrary }}' | base64
+          echo '${{ secrets.mask }}' | base64
